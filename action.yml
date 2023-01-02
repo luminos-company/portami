@@ -1,5 +1,8 @@
 name: 'Portami'
 description: 'You have ever wondered if it was possible to update your Portainer stack withotu leaving gihtub, well now it is possible'
+branding:
+  icon: 'upload-cloud'
+  color: 'white'
 inputs:
   endpoint: 
     description: 'Portainer endpoint'
