@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A portainer github action to let you update your stacks",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

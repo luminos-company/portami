@@ -1,7 +1,7 @@
-const fetch = require('node-fetch');
-const core = require('@actions/core');
-const github = require('@actions/github');
-const fs = require('fs');
+import * as core from '@actions/core';
+import * as github from '@actions/github';
+import * as fs from 'fs';
+import fetch from 'node-fetch';
 
 const stack_id = core.getInput('stack_id');
 const file_path = core.getInput('file_path');
