@@ -7,6 +7,15 @@ inputs:
   stack_id: 
     description: 'Stack id'
     required: true  
+  file_path: 
+    description: 'Path to the file to be updated'
+    required: false
+  prune: 
+    description: 'Prune the stack'
+    required: false
+  pull: 
+    description: 'Pull the stack'
+    required: false
 runs:
   using: 'node16'
   main: 'index.js'
