@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 const core = require('@actions/core');
 const github = require('@actions/github');
 const fs = require('fs');
