@@ -1,6 +1,9 @@
 name: 'Portami'
 description: 'You have ever wondered if it was possible to update your Portainer stack withotu leaving gihtub, well now it is possible'
 inputs:
+  endpoint: 
+    description: 'Portainer endpoint'
+    required: true
   access_token: 
     description: 'User access token with the right privilegis'
     required: true

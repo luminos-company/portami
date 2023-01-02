@@ -3,12 +3,13 @@ import * as github from '@actions/github';
 import * as fs from 'fs';
 import fetch from 'node-fetch';
 
+const endpoint = core.getInput('endpoint')+"/api";
 const stack_id = core.getInput('stack_id');
 const file_path = core.getInput('file_path');
-const prune = core.getInput('prune') == "true";
-const pullImage = core.getInput('pullImage') == "true";
+const prune = core.getBooleanInput('prune');
+const pullImage = core.getBooleanInput('pull');
 const headers = {
-    "x-api-key": core.getInput('access_token'),
+    "x-api-key": "ptr_pIow9zL6Bl7qKydRJDTYKZnC4ZlyXUeE2rZad8WUpIE=",
     "Content-Type": "application/json"
 };
 
@@ -22,7 +23,7 @@ function withQuery(url, query) {
 }
 
 async function fetchStack() {
-    await fetch(withQuery('https://portainer.ingmmo.com/api/stacks'),
+    await fetch(withQuery(endpoint+'/stacks'),
         {
             headers: headers,
         })
@@ -38,7 +39,7 @@ async function fetchStack() {
 }
 
 async function fetchStackID(id) {
-    await fetch(withQuery('https://portainer.ingmmo.com/api/stacks/' + id),
+    await fetch(withQuery(endpoint+'/stacks/' + id),
         {
             headers: headers,
         })
@@ -54,24 +55,22 @@ async function redoploy(id, endpointId) {
     let basicVars = [];
     try {
         try {
-            let res = (await fetch('https://portainer.ingmmo.com/api/stacks/' + id + '/file', {
+            let res = (await fetch(endpoint+'/stacks/' + id + '/file', {
                 method: 'GET',
                 headers: headers,
             }).then(response => response.json()));
+            if (file_path) {
+                basicContent = fs.readFileSync(file_path,'utf8');
+            } else {
+                basicContent = res.StackFileContent;
+            }
         } catch (error) {
             core.setFailed("This stack is not a file stack");
-        }
-        if (file_path) {
-            basicContent = fs.readFileSync(file_path, 'utf8');
-        } else {
-            basicContent = res.StackFileContent;
         }
         if (res.Env) {
             basicVars = res.Env;
         }
-    } catch (error) {
-        basicContent = "";
-        basicVars = [];
+    } catch (_) {
     }
     basicVars.push({
         "name": "PORTAMI_ACTIVE",
@@ -84,7 +83,7 @@ async function redoploy(id, endpointId) {
         "value": new Date().toISOString()
     });
 
-    await fetch(withQuery('https://portainer.ingmmo.com/api/stacks/' + id, {
+    await fetch(withQuery(endpoint+'/stacks/' + id, {
         "endpointId": endpointId,
     }),
         {
