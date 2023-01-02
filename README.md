@@ -1,12 +1,16 @@
 # Portami
+[![Luminos Open](https://img.shields.io/badge/Luminos%20Open-Production-success)](https://luminossrl.com)
+[![CodeQL](https://github.com/luminos-company/portami/actions/workflows/codeql.yml/badge.svg)](https://github.com/luminos-company/portami/actions/workflows/codeql.yml)
+
 A portainer github action to let you update your stacks
 
+---
 ## How to use
 1. Create a new workflow file in your repo
 2. Put the following step in the file
 ```yaml
       - name: portainer
-        uses: luminos-company/portami@v1.0
+        uses: luminos-company/portami@v1.1
         with:
           endpoint: 'https://myportainer.example.com'
           access_token: 'REALLY SECRET TOKEN'

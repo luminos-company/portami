@@ -75,7 +75,7 @@ async function redoploy(id, endpointId) {
         "value": "true"
     }, {
         "name": "PORTAMI_VERSION",
-        "value": "v0.1"
+        "value": "v1.1"
     }, {
         "name": "PORTAMI_UPDATED_AT",
         "value": new Date().toISOString()
