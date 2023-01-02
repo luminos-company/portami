@@ -9,7 +9,7 @@ const file_path = core.getInput('file_path');
 const prune = core.getBooleanInput('prune');
 const pullImage = core.getBooleanInput('pull');
 const headers = {
-    "x-api-key": "ptr_pIow9zL6Bl7qKydRJDTYKZnC4ZlyXUeE2rZad8WUpIE=",
+    "x-api-key":  core.getInput('access_token'),
     "Content-Type": "application/json"
 };
 
