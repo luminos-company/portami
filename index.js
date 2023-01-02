@@ -18,7 +18,6 @@ function withQuery(url, query) {
     if (query) {
         Object.keys(query).forEach(key => exurl.searchParams.append(key, query[key]));
     }
-    console.log(exurl);
     return exurl;
 }
 
@@ -50,7 +49,6 @@ async function fetchStackID(id) {
 }
 
 async function redoploy(id, endpointId) {
-    console.log(id);
     let basicContent = "";
     let basicVars = [];
     try {
@@ -95,9 +93,7 @@ async function redoploy(id, endpointId) {
                 "stackFileContent": basicContent,
                 "env": basicVars
             })
-        }).then(response => response.text()).then((data) => {
-            console.log(data);
-        });
+        }).then(response => response.json());
 }
 
 
@@ -105,7 +101,6 @@ async function run() {
     try {
         await fetchStack();
     } catch (error) {
-        console.log(error);
         core.setFailed(error.message);
     }
 }
