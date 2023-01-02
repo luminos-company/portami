@@ -1,0 +1,11 @@
+name: 'Portami'
+description: 'You have ever wondered if it was possible to update your Portainer stack withotu leaving gihtub, well now it's possible'
+inputs:
+  access_token: 
+    description: 'User access token with the right privilegis'
+    required: true
+  stack_id: 
+    required: true  
+runs:
+  using: 'node16'
+  main: 'index.js'
