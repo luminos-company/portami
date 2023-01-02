@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  portami_test:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      - name: Hello world action step
+        uses: luminos-company/portami@v0.1
+        with:
+          access_token: 'Test1'
+          stack_id: 'test2'
