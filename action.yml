@@ -10,8 +10,8 @@ inputs:
   access_token: 
     description: 'User access token with the right privilegis'
     required: true
-  stack_id: 
-    description: 'Stack id'
+  stack_name: 
+    description: 'Stack name'
     required: true  
   file_path: 
     description: 'Path to the file to be updated'
