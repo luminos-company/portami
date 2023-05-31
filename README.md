@@ -10,7 +10,7 @@ A portainer github action to let you update your stacks
 2. Put the following step in the file
 ```yaml
       - name: portainer
-        uses: luminos-company/portami@v1.1
+        uses: luminos-company/portami@v1.2
         with:
           endpoint: 'https://myportainer.example.com'
           access_token: 'REALLY SECRET TOKEN'
