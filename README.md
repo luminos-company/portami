@@ -14,7 +14,7 @@ A portainer github action to let you update your stacks
         with:
           endpoint: 'https://myportainer.example.com'
           access_token: 'REALLY SECRET TOKEN'
-          stack_id: 'my_stack_name' # The unique name of the stack like: "cdn_minio"
+          stack_name: 'my_stack_name' # The unique name of the stack like: "cdn_minio"
           file_path: 'my_awesome_stack_file.yaml' # The stack file path to use
           prune: true # Prune the stack
           pull: true # Pull the images
@@ -26,7 +26,7 @@ A portainer github action to let you update your stacks
 | ---- | ----------- | -------- | ------- |
 | endpoint | The portainer endpoint | true | |
 | access_token | The portainer access token | true | |
-| stack_id | The stack id | true | |
+| stack_name | The stack id | true | |
 | file_path | The stack file path | false | |
 | prune | Prune the stack | false | false |
 | pull | Pull the images | false | false |
