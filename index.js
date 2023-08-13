@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import fetch from 'node-fetch';
 
 const endpoint = core.getInput('endpoint')+"/api";
-const stack_id = core.getInput('stack_id');
+const stack_name = core.getInput('stack_name');
 const file_path = core.getInput('file_path');
 const prune = core.getBooleanInput('prune');
 const pullImage = core.getBooleanInput('pull');
@@ -22,14 +22,14 @@ function withQuery(url, query) {
 }
 
 async function fetchStack() {
-    await fetch(withQuery(endpoint+'/stacks'),
+    await fetch(withQuery(endpoint + '/stacks'),
         {
             headers: headers,
         })
         .then(response => response.json())
         .then(async (data) => {
             for (let i = 0; i < data.length; i++) {
-                if (data[i].Name == stack_id) {
+                if (data[i].Name == stack_name) {
                     await fetchStackID(data[i].Id);
                     break;
                 }
@@ -38,22 +38,21 @@ async function fetchStack() {
 }
 
 async function fetchStackID(id) {
-    await fetch(withQuery(endpoint+'/stacks/' + id),
+    await fetch(withQuery(endpoint + '/stacks/' + id),
         {
             headers: headers,
         })
         .then(response => response.json())
         .then(async (data) => {
-            await redoploy(data.Id, data.EndpointId);
+            await redoploy(data.Id, data.EndpointId, data.Env);
         });
 }
 
-async function redoploy(id, endpointId) {
+async function redoploy(id, endpointId, basicVars) {
     let basicContent = "";
-    let basicVars = [];
     try {
         try {
-            let res = (await fetch(endpoint+'/stacks/' + id + '/file', {
+            let res = (await fetch(endpoint + '/stacks/' + id + '/file', {
                 method: 'GET',
                 headers: headers,
             }).then(response => response.json()));
@@ -65,9 +64,6 @@ async function redoploy(id, endpointId) {
         } catch (error) {
             core.setFailed("This stack is not a file stack");
         }
-        if (res.Env) {
-            basicVars = res.Env;
-        }
     } catch (_) {
     }
     basicVars.push({
@@ -75,13 +71,13 @@ async function redoploy(id, endpointId) {
         "value": "true"
     }, {
         "name": "PORTAMI_VERSION",
-        "value": "v1.1"
+        "value": "v1.2"
     }, {
         "name": "PORTAMI_UPDATED_AT",
         "value": new Date().toISOString()
     });
 
-    await fetch(withQuery(endpoint+'/stacks/' + id, {
+    await fetch(withQuery(endpoint + '/stacks/' + id, {
         "endpointId": endpointId,
     }),
         {
